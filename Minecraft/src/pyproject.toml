@@ -1,0 +1,9 @@
+[project]
+name = "Minecraft-Siri-Automation"
+version = "0.1.0"
+description = "Scripts for Automation MC-Server With Siri Integration"
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "flask>=3.1.2",
+]

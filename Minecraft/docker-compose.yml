@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft-server
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      VERSION: "latest"
+      MEMORY: "2G"
+    volumes:
+      - ./paperMC:/data
+    restart: unless-stopped

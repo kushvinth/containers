@@ -50,13 +50,10 @@ Thumbs.db
 *.tmp
 
 # Minecraft LocalStore
-
 paperMC/
 
 # Nginx
-
 reverse-proxy.conf
 
 # immich datastore
-
 immich_data/

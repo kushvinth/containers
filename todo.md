@@ -1,1 +1,4 @@
-make the repo nicely for navigation
+### TODO:
+
+- [X] deleting all internal commits
+- [X] PROD

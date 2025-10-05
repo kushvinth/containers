@@ -9,7 +9,7 @@ services:
     environment:
       EULA: "TRUE"
       TYPE: "PAPER"
-      VERSION: "latest"
+      VERSION: "1.21.4"
       MEMORY: "2G"
     volumes:
       - ./paperMC:/data

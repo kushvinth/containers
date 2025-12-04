@@ -51,7 +51,7 @@ Thumbs.db
 
 # Minecraft LocalStore
 paperMC/
-
+version.json
 # Nginx
 reverse-proxy.conf
 

@@ -1,0 +1,9 @@
+services:
+  bentopdf:
+    # simple mode - bentopdf/bentopdf-simple:latest
+    # default mode - bentopdf/bentopdf:latest
+    image: bentopdf/bentopdf-simple:latest
+    container_name: bentopdf
+    restart: unless-stopped
+    ports:
+      - '8080:8080'

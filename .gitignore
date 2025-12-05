@@ -58,3 +58,6 @@ reverse-proxy.conf
 
 # immich datastore
 immich_data/
+
+# uptimekuma datastore
+data/

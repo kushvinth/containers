@@ -1,6 +1,7 @@
 services:
   uptime-kuma:
     image: louislam/uptime-kuma:2
+    container_name: uptimekuma
     restart: unless-stopped
     volumes:
       - ./data:/app/data
@@ -8,3 +9,23 @@ services:
     ports:
       # <Host Port>:<Container Port>
       - "3001:3001"
+  autokuma:
+    image: ghcr.io/bigboot/autokuma:latest
+    container_name: autokuma
+    restart: unless-stopped
+    depends_on:
+      - uptime-kuma
+    environment:
+      AUTOKUMA__KUMA__URL: http://uptime-kuma:3001
+      AUTOKUMA__KUMA__USERNAME: ${KUMA_USERNAME}
+      AUTOKUMA__KUMA__PASSWORD: ${KUMA_PASSWORD}
+      AUTOKUMA__KUMA__CALL_TIMEOUT: 10
+      AUTOKUMA__TAG_NAME: AutoKuma
+      AUTOKUMA__TAG_COLOR: "#42C0FB"
+      AUTOKUMA__KUMA__CONNECT_TIMEOUT: 5
+      AUTOKUMA__DOCKER__HOSTS: unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - autokuma-data:/data
+volumes:
+  autokuma-data:

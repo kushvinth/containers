@@ -14,3 +14,8 @@ services:
     volumes:
       - ./paperMC:/data
     restart: unless-stopped
+  playit:
+    image: ghcr.io/playit-cloud/playit-agent:0.16
+    network_mode: host
+    environment:
+    - SECRET_KEY=${SECRET_KEY}

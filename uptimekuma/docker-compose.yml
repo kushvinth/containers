@@ -3,6 +3,12 @@ services:
     image: louislam/uptime-kuma:2
     container_name: uptimekuma
     restart: unless-stopped
+    labels:
+      - "autokuma.enabled=true"
+      - "autokuma.group=monitoring"
+      - "autokuma.name=Uptime Kuma"
+      - "autokuma.url=http://localhost:3001"
+      - "autokuma.type=http"
     volumes:
       - ./data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
@@ -13,6 +19,11 @@ services:
     image: ghcr.io/bigboot/autokuma:latest
     container_name: autokuma
     restart: unless-stopped
+    labels:
+      - "autokuma.enabled=true"
+      - "autokuma.group=monitoring"
+      - "autokuma.name=AutoKuma"
+      - "autokuma.type=docker"
     depends_on:
       - uptime-kuma
     environment:

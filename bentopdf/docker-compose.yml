@@ -3,7 +3,13 @@ services:
     # simple mode - bentopdf/bentopdf-simple:latest
     # default mode - bentopdf/bentopdf:latest
     image: bentopdf/bentopdf-simple:latest
+    labels:
+      - "autokuma.enabled=true"
+      - "autokuma.group=bentopdf"
+      - "autokuma.name=BentoPDF"
+      - "autokuma.url=http://localhost:8080"
+      - "autokuma.type=http"
     container_name: bentopdf
     restart: unless-stopped
     ports:
-      - '8080:8080'
+      - "8085:8080"

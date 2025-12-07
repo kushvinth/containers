@@ -61,3 +61,15 @@ immich_data/
 
 # uptimekuma datastore
 data/
+
+# *arr stack
+gluetun/ 
+lidarr/ 
+nzbget/  
+prowlarr/  
+qbittorrent/  
+radarr/  
+sonarr/
+bazarr/
+caddy/
+jellyseerr/

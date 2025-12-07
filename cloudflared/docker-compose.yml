@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  cloudflared:
+    image: cloudflare/cloudflared
+    container_name: cloudflare-tunnel
+    restart: unless-stopped
+    command:
+      - tunnel
+      - --no-autoupdate
+      - run
+      - --token
+      - ${TUNNEL_TOKEN} 
+secrets:
+  cloudflareTunnelToken:
+    external: true

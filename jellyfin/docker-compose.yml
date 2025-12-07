@@ -2,6 +2,12 @@ services:
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
+    labels:
+      - "autokuma.enabled=true"
+      - "autokuma.group=jellyfin"
+      - "autokuma.name=Jellyfin Media Server"
+      - "autokuma.url=http://localhost:8096"
+      - "autokuma.type=http"
 
     ports:
       - 8096:8096/tcp
@@ -21,4 +27,4 @@ services:
         source: /path/to/fonts
         target: /usr/local/share/fonts/custom
         read_only: true
-    restart: 'unless-stopped'
+    restart: "unless-stopped"

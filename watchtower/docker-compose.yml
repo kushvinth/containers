@@ -4,11 +4,14 @@ services:
     image: nickfedor/watchtower:latest
     container_name: watchtower
     restart: unless-stopped
+    labels:
+      - "autokuma.enabled=true"
+      - "autokuma.group=maintenance"
+      - "autokuma.name=Watchtower"
+      - "autokuma.type=docker"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_CLEANUP=true
       #  - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
-
-

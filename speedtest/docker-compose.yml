@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  speedtest:
+    container_name: speedtest
+    image: ghcr.io/librespeed/speedtest:latest
+    restart: always
+    ports:
+      - "30093:8080"
+    environment:
+      MODE: standalone
+      DISTANCE: km

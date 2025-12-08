@@ -65,11 +65,17 @@ data/
 # *arr stack
 gluetun/ 
 lidarr/ 
+Lidarr/
 nzbget/  
 prowlarr/  
+Prowlarr/
 qbittorrent/  
 radarr/  
+Radarr/
 sonarr/
+Sonarr/
 bazarr/
 caddy/
 jellyseerr/
+jellyfin/
+Homarr/

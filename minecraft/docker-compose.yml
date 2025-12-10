@@ -21,6 +21,7 @@ services:
     restart: unless-stopped
   playit:
     image: ghcr.io/playit-cloud/playit-agent:0.16
+    container_name: playit
     network_mode: host
     labels:
       - "autokuma.enabled=true"

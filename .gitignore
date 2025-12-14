@@ -80,4 +80,10 @@ jellyseerr/
 jellyfin/
 Homarr/
 Jellyfin/
-jellyfin/
+Downloads/
+
+# n8n Datastore
+n8n_data/
+
+# TODO
+TODO.md

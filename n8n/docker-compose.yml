@@ -3,14 +3,14 @@ services:
     image: docker.n8n.io/n8nio/n8n
     restart: unless-stopped
     container_name: n8n
+    network_mode: host
+    user: "1000:1000"
     labels:
       - "autokuma.enabled=true"
       - "autokuma.group=n8n"
       - "autokuma.name=n8n Automation"
       - "autokuma.url=http://localhost:5678"
       - "autokuma.type=http"
-    ports:
-      - "5678:5678"
     environment:
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_PORT=5678
@@ -19,3 +19,11 @@ services:
       - NODE_ENV=production
       - TZ=Asia/Kolkata
       - GENERIC_TIMEZONE=Asia/Kolkata
+      - N8N_HOST=${N8N_HOST_NAME}
+      - N8N_PORT=${N8N_PORT_NUMBER}
+      - N8N_PROTOCOL=${N8N_PROTOCOL}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - WEBHOOK_TUNNEL_URL=${WEBHOOK_URL}
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+      - /var/run/docker.sock:/var/run/docker.sock

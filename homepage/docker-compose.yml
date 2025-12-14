@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: "localhost,127.0.0.1,0.0.0.0,192.168.1.0/24"
+      PUID: 1000                                   # Optional
+      PGID: 1000                                   # Optional
+    ports:
+      - "3000:3000"
+    volumes:
+      - /config:/app/config                # Make sure folder exists
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # Optional, enables Docker widgets
+    restart: unless-stopped

@@ -20,7 +20,10 @@ services:
     restart: unless-stopped
     env_file:
       - '.env'
-      
+    # network_mode: host TOOD: Why did i do this
+    networks:
+      - warp
+
 # ███████╗ ██████╗ ███╗   ██╗ █████╗ ██████╗ ██████╗ 
 # ██╔════╝██╔═══██╗████╗  ██║██╔══██╗██╔══██╗██╔══██╗
 # ███████╗██║   ██║██╔██╗ ██║███████║██████╔╝██████╔╝
@@ -42,6 +45,8 @@ services:
     restart: unless-stopped
     env_file:
       - '.env'
+    networks:
+      - warp
       
 # ██████╗  █████╗ ██████╗  █████╗ ██████╗ ██████╗ 
 # ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
@@ -64,6 +69,8 @@ services:
     restart: unless-stopped
     env_file:
       - '.env'
+    networks:
+      - warp
       
 # ██╗     ██╗██████╗  █████╗ ██████╗ ██████╗ 
 # ██║     ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗
@@ -85,6 +92,8 @@ services:
     restart: unless-stopped
     env_file:
       - '.env'
+    networks:
+      - warp  
       
 # ██╗  ██╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ ██████╗ 
 # ██║  ██║██╔═══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗
@@ -105,6 +114,8 @@ services:
       - '7575:7575'
     env_file:
       - '.env'
+    networks:
+      - warp
 
 #      ██╗███████╗██╗     ██╗  ██╗   ██╗███████╗██╗███╗   ██╗
 #      ██║██╔════╝██║     ██║  ╚██╗ ██╔╝██╔════╝██║████╗  ██║
@@ -120,6 +131,8 @@ services:
       - '8096:8096/tcp'   # Jellyfin web interface
       - '7359:7359/udp'   # Network discovery
       - '1900:1900/udp'   # DLNA port
+    devices:
+      - /dev/dri:/dev/dri   
     volumes:
       - ${ARRPATH}Jellyfin/config:/config
       - ${ARRPATH}Radarr/movies:/data/Movies
@@ -128,6 +141,8 @@ services:
     env_file:
       - '.env'
     restart: unless-stopped
+    networks:
+      - warp
           
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
 # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
@@ -137,7 +152,7 @@ services:
 #  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝                                                                                          
                                                                                              
   qbittorrent:
-    image: linuxserver/qbittorrent:latest
+    image: linuxserver/qbittorrent:4.5.5
     container_name: qbittorrent
     hostname: qbittorrent
     restart: unless-stopped
@@ -157,7 +172,9 @@ services:
       start_period: 15s
     env_file:
       - '.env'
-
+    networks:
+      - warp 
+    
 
 #      ██╗███████╗██╗     ██╗  ██╗   ██╗███████╗███████╗███████╗██████╗ 
 #      ██║██╔════╝██║     ██║  ╚██╗ ██╔╝██╔════╝██╔════╝██╔════╝██╔══██╗
@@ -178,4 +195,48 @@ services:
     ports:
       - 5055:5055
     restart: unless-stopped
-     
+    # dns:
+    #   - 1.1.1.1
+    #   - 0.0.0.0
+    networks:
+      - warp
+
+# ███████╗██╗      █████╗ ██████╗ ███████╗███████╗ ██████╗ ██╗     ██╗   ██╗███████╗██████╗ ██████╗ 
+# ██╔════╝██║     ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔═══██╗██║     ██║   ██║██╔════╝██╔══██╗██╔══██╗
+# █████╗  ██║     ███████║██████╔╝█████╗  ███████╗██║   ██║██║     ██║   ██║█████╗  ██████╔╝██████╔╝
+# ██╔══╝  ██║     ██╔══██║██╔══██╗██╔══╝  ╚════██║██║   ██║██║     ╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██╗
+# ██║     ███████╗██║  ██║██║  ██║███████╗███████║╚██████╔╝███████╗ ╚████╔╝ ███████╗██║  ██║██║  ██║
+# ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flared
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+    networks:
+      - warp
+  warp:
+    image: caomingjun/warp
+    container_name: warp
+    restart: unless-stopped
+    device_cgroup_rules:
+      - "c 10:200 rwm"
+    ports:
+      - "1080:1080"
+    cap_add:
+      - NET_ADMIN
+      - MKNOD
+      - AUDIT_WRITE
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - ${ARRPATH}warp:/var/lib/cloudflare-warp
+    networks:
+      - warp
+
+
+networks:
+  warp:
+    driver: bridge

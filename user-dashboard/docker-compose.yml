@@ -1,0 +1,23 @@
+services:
+  dashy:
+    image: lissy93/dashy:latest
+    container_name: dashy_dashboard
+    restart: unless-stopped
+    ports:
+      - "4000:80"
+    volumes:
+      - ./config/dashy-config.yml:/app/public/conf.yml:ro
+      - dashy-icons:/app/public/item-icons
+    environment:
+      - NODE_ENV=production
+      - UID=1000
+      - GID=1000
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  dashy-icons:

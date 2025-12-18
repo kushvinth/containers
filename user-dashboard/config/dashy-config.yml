@@ -1,0 +1,165 @@
+---
+pageInfo:
+  title: My Container Dashboard
+  description: Centralized dashboard for all self-hosted services
+  navLinks:
+    - title: GitHub
+      path: https://github.com/kushvinth/containers
+  footerText: ''
+
+appConfig:
+  theme: material-dark
+  layout: auto
+  iconSize: medium
+  language: en
+  startingView: default
+  defaultOpeningMethod: newtab
+  statusCheck: true
+  statusCheckInterval: 300
+  faviconApi: google
+  routingMode: history
+  enableMultiTasking: false
+  widgetsAlwaysUseProxy: false
+  webSearch:
+    disableWebSearch: false
+    searchEngine: duckduckgo
+    openingMethod: newtab
+  enableFontAwesome: true
+  enableMaterialDesignIcons: false
+  hideComponents:
+    hideHeading: false
+    hideNav: false
+    hideSearch: false
+    hideSettings: false
+    hideFooter: false
+
+sections:
+  - name: Media Management
+    icon: fas fa-film
+    items:
+      - title: Jellyfin
+        description: Media Server
+        icon: hl-jellyfin
+        url: http://localhost:8096
+        statusCheck: true
+        id: 0_1589_jellyfin
+      - title: Radarr
+        description: Movie Management
+        icon: hl-radarr
+        url: http://localhost:7878
+        statusCheck: true
+        id: 1_1589_radarr
+      - title: Sonarr
+        description: TV Show Management
+        icon: hl-sonarr
+        url: http://localhost:8989
+        statusCheck: true
+        id: 2_1589_sonarr
+      - title: Lidarr
+        description: Music Management
+        icon: hl-lidarr
+        url: http://localhost:8686
+        statusCheck: true
+        id: 3_1589_lidarr
+      - title: Prowlarr
+        description: Indexer Manager
+        icon: hl-prowlarr
+        url: http://localhost:9696
+        statusCheck: true
+        id: 4_1589_prowlarr
+      - title: Jellyseerr
+        description: Media Request Management
+        icon: hl-jellyseerr
+        url: http://localhost:5055
+        statusCheck: true
+        id: 5_1589_jellyseerr
+
+  - name: Download & Networking
+    icon: fas fa-download
+    items:
+      - title: qBittorrent
+        description: Torrent Client
+        icon: hl-qbittorrent
+        url: http://localhost:8080
+        statusCheck: true
+        id: 0_1887_qbittorrent
+      - title: Cloudflared
+        description: Cloudflare Tunnel
+        icon: hl-cloudflare
+        statusCheck: false
+        id: 1_1887_cloudflared
+      - title: Pi-hole
+        description: Network-wide Ad Blocking
+        icon: hl-pihole
+        url: http://localhost:80/admin
+        statusCheck: true
+        id: 2_1887_pihole
+
+  - name: Monitoring & Utilities
+    icon: fas fa-chart-line
+    items:
+      - title: Uptime Kuma
+        description: Uptime Monitoring
+        icon: hl-uptime-kuma
+        url: http://localhost:3001
+        statusCheck: true
+        id: 0_2145_uptimekuma
+      - title: Glance
+        description: At-a-glance Dashboard
+        icon: fas fa-eye
+        url: http://localhost:8082
+        statusCheck: true
+        id: 1_2145_glance
+      - title: Homepage
+        description: Homepage Dashboard
+        icon: hl-homepage
+        url: http://localhost:3000
+        statusCheck: true
+        id: 2_2145_homepage
+      - title: Speedtest Tracker
+        description: Network Speed Monitoring
+        icon: fas fa-tachometer-alt
+        statusCheck: false
+        id: 3_2145_speedtest
+
+  - name: Productivity & Communication
+    icon: fas fa-tasks
+    items:
+      - title: n8n
+        description: Workflow Automation
+        icon: hl-n8n
+        statusCheck: false
+        id: 0_2398_n8n
+      - title: Immich
+        description: Photo Management
+        icon: hl-immich
+        statusCheck: false
+        id: 1_2398_immich
+
+  - name: Gaming & Remote Access
+    icon: fas fa-gamepad
+    items:
+      - title: Minecraft Server
+        description: FreakyNadarSMP 3.0
+        icon: hl-minecraft
+        statusCheck: false
+        id: 0_2687_minecraft
+      - title: RustDesk
+        description: Remote Desktop
+        icon: fas fa-desktop
+        statusCheck: false
+        id: 1_2687_rustdesk
+
+  - name: System Management
+    icon: fas fa-cog
+    items:
+      - title: Watchtower
+        description: Automated Container Updates
+        icon: hl-watchtower
+        statusCheck: false
+        id: 0_2925_watchtower
+      - title: BentoPDF
+        description: PDF Utilities
+        icon: fas fa-file-pdf
+        statusCheck: false
+        id: 1_2925_bentopdf

@@ -33,11 +33,13 @@ This dashboard uses [Dashy](https://github.com/Lissy93/dashy), a modern, configu
 
 The dashboard configuration is stored in `config/dashy-config.yml`. You can customize:
 
-- **Service URLs**: Update URLs to match your network setup
+- **Service URLs**: Update URLs to match your network setup (default is `localhost` - change to your server IP or domain)
 - **Icons**: Change icons for better visual representation
 - **Sections**: Add, remove, or reorganize service categories
 - **Theme**: Switch between light, dark, or custom themes
 - **Status Checks**: Enable/disable health monitoring per service
+
+> **Note**: All service URLs are set to `localhost` by default. Update them to match your actual server address (e.g., `http://192.168.1.100:8096` or `https://yourdomain.com/jellyfin`)
 
 ### Example Customization
 

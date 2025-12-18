@@ -1,10 +1,12 @@
 services:
   dashy:
+    # Using 'latest' for convenience. For production, consider pinning to a specific version
+    # e.g., lissy93/dashy:2.8.9
     image: lissy93/dashy:latest
     container_name: dashy_dashboard
     restart: unless-stopped
     ports:
-      - "4000:80"
+      - "${DASHBOARD_PORT:-4000}:80"
     volumes:
       - ./config/dashy-config.yml:/app/public/conf.yml:ro
       - dashy-icons:/app/public/item-icons

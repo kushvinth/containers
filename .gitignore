@@ -88,6 +88,6 @@ beszel_data/
 
 # n8n Datastore
 n8n_data/
-
+.n8n/
 # TODO
 TODO.md

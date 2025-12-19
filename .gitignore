@@ -82,6 +82,10 @@ Homarr/
 Jellyfin/
 Downloads/
 
+# beszel datastore
+beszel_agent_data/
+beszel_data/
+
 # n8n Datastore
 n8n_data/
 

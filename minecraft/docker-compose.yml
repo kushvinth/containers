@@ -16,6 +16,10 @@ services:
       TYPE: "PAPER"
       VERSION: "1.21.8"
       MEMORY: "2G"
+      MAX_TICK_TIME: "-1"
+      ENABLE_AUTOSTOP: "TRUE"
+      AUTOSTOP_TIMEOUT_EST: "60"
+      AUTOPAUSE_KNOCK_INTERFACE: "eth0"
     volumes:
       - ./paperMC:/data
     restart: unless-stopped

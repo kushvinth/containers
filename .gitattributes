@@ -1,9 +1,18 @@
-# Docker files
+# -------------------------------
+# Docker / Docker Compose
+# -------------------------------
+
 Dockerfile linguist-language=Dockerfile
 **/Dockerfile linguist-language=Dockerfile
-docker-compose.yml linguist-language=YAML
-**/docker-compose.yml linguist-language=YAML
 *.dockerfile linguist-language=Dockerfile
 
-# Ignore CSS from linguist statistics
+docker-compose.yml linguist-language=YAML
+docker-compose.*.yml linguist-language=YAML
+**/docker-compose.yml linguist-language=YAML
+**/docker-compose.*.yml linguist-language=YAML
+
+# -------------------------------
+# Exclude CSS from statistics
+# -------------------------------
+
 *.css linguist-generated=true

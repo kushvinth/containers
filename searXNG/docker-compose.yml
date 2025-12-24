@@ -1,0 +1,20 @@
+services:
+  redis:
+    image: valkey/valkey:8-alpine
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - ./valkey-data:/data
+    command: valkey-server --save 30 1 --loglevel warning
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    ports:
+      - "8980:8080"
+    volumes:
+      - ./searxng:/etc/searxng
+      - ./searxng-data:/var/cache/searxng
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8980/

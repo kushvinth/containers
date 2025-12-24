@@ -14,9 +14,15 @@ services:
       - "8081:80/tcp"
       # No 443 port mapping
     environment:
-      TZ: "Asia/Kolkata"
-      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
-      FTLCONF_dns_listeningMode: "ALL"
+      - TZ=Asia/Kolkata
+      - FTLCONF_webserver_api_password=${PIHOLE_PASSWORD}
+      - FTLCONF_dns_listeningMode=ALL    
+      - PIHOLE_ALLOW_LOCALHOST=true
     volumes:
-      - "/server/pihole/etc-pihole:/etc/pihole"
+      - "./etc-pihole:/etc/pihole"
+      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+
     restart: unless-stopped

@@ -6,10 +6,18 @@ Dockerfile linguist-language=Dockerfile
 **/Dockerfile linguist-language=Dockerfile
 *.dockerfile linguist-language=Dockerfile
 
-docker-compose.yml linguist-language=YAML
-docker-compose.*.yml linguist-language=YAML
-**/docker-compose.yml linguist-language=YAML
-**/docker-compose.*.yml linguist-language=YAML
+docker-compose.yml linguist-detectable=true
+docker-compose.*.yml linguist-detectable=true
+docker-compose.yaml linguist-detectable=true
+docker-compose.*.yaml linguist-detectable=true
+**/docker-compose.yml linguist-detectable=true
+**/docker-compose.*.yml linguist-detectable=true
+**/docker-compose.yaml linguist-detectable=true
+**/docker-compose.*.yaml linguist-detectable=true
+compose.yml linguist-detectable=true
+compose.yaml linguist-detectable=true
+**/compose.yml linguist-detectable=true
+**/compose.yaml linguist-detectable=true
 
 # -------------------------------
 # Exclude CSS from statistics

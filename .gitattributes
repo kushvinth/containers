@@ -1,18 +1,8 @@
-# -------------------------------
-# Docker / Docker Compose
-# -------------------------------
+# Docker files
+Dockerfile linguist-detectable
+*.dockerfile linguist-detectable
+docker-compose.yml linguist-detectable
+docker-compose.*.yml linguist-detectable
 
-Dockerfile linguist-language=Dockerfile
-**/Dockerfile linguist-language=Dockerfile
-*.dockerfile linguist-language=Dockerfile
-
-docker-compose.yml linguist-language=YAML
-docker-compose.*.yml linguist-language=YAML
-**/docker-compose.yml linguist-language=YAML
-**/docker-compose.*.yml linguist-language=YAML
-
-# -------------------------------
-# Exclude CSS from statistics
-# -------------------------------
-
-*.css linguist-generated=true
+# Ignore CSS
+*.css linguist-vendored

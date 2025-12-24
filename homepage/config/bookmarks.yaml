@@ -1,0 +1,38 @@
+---
+- FavSites:
+    - WhatsApp:
+        - icon: whatsapp
+          href: https://web.whatsapp.com
+
+    - Outlook:
+        - icon: microsoft-outlook
+          href: https://outlook.live.com/mail
+
+    - X:
+        - icon: x
+          href: https://x.com
+
+    - Gmail:
+        - icon: gmail
+          href: https://mail.google.com
+
+    - LinkedIn:
+        - icon: linkedin
+          href: https://www.linkedin.com/feed
+
+    - Slack:
+        - icon: slack
+          href: https://app.slack.com/client
+
+    - Excalidraw:
+        - icon: https://excalidraw.com/favicon.ico
+          href: https://excalidraw.com
+
+    - Notion:
+        - icon: notion
+          href: https://www.notion.so
+
+    - Y Combinator:
+        - icon: https://www.ycombinator.com/favicon.ico
+          href: https://www.ycombinator.com
+

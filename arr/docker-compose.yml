@@ -11,6 +11,9 @@ services:
     image: linuxserver/prowlarr:latest
     container_name: prowlarr
     hostname: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
     volumes:
       - ${ARRPATH}Prowlarr/config:/config
       - ${ARRPATH}Prowlarr/backup:/data/Backup
@@ -35,6 +38,9 @@ services:
     image: linuxserver/sonarr:latest
     container_name: sonarr
     hostname: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000    
     volumes:
       - ${ARRPATH}Sonarr/config:/config
       - ${ARRPATH}Sonarr/backup:/data/Backup
@@ -59,6 +65,9 @@ services:
     image: linuxserver/radarr:latest
     container_name: radarr
     hostname: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
     volumes:
       - ${ARRPATH}Radarr/config:/config
       - ${ARRPATH}Radarr/movies:/data/movies
@@ -83,6 +92,9 @@ services:
     image: linuxserver/lidarr:latest
     container_name: lidarr
     hostname: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
     volumes:
       - ${ARRPATH}Lidarr/config:/config
       - ${ARRPATH}Lidarr/music:/data/musicfolder

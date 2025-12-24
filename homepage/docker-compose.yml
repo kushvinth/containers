@@ -5,12 +5,15 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: "localhost,127.0.0.1,0.0.0.0,192.168.1.0/24"
+      HOMEPAGE_ALLOWED_HOSTS: $(LIST_OF_ALLOWED_HOSTS)
       PUID: 1000                                   # Optional
-      PGID: 1000                                   # Optional
+      PGID: 126                                   # Optional
+      WEATHERAPI_API_KEY: $(WEATHERAPI_API_KEY)
+    env_file: 
+      - .env
     ports:
       - "3000:3000"
     volumes:
-      - /config:/app/config                # Make sure folder exists
+      - ./config:/app/config                # Make sure folder exists
       - /var/run/docker.sock:/var/run/docker.sock:ro  # Optional, enables Docker widgets
     restart: unless-stopped

@@ -9,9 +9,14 @@ services:
       - "autokuma.group=maintenance"
       - "autokuma.name=Watchtower"
       - "autokuma.type=docker"
+    ports:
+      - "8099:8080" 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_CLEANUP=true
       #  - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
+      - WATCHTOWER_METRICS_ENABLED="true"
+      - WATCHTOWER_HTTP_API_TOKEN=${TOKEN}
+      - WATCHTOWER_HTTP_API_METRICS="true"

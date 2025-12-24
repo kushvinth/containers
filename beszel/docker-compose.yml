@@ -10,14 +10,22 @@ services:
       - ./beszel_socket:/extra-filesystems/hdd1:ro
 
   beszel-agent:
-    image: henrygd/beszel-agent
+    image: henrygd/beszel-agent:alpine
     container_name: beszel-agent
     restart: unless-stopped
     network_mode: host
+    privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /:/host:ro
+      - /dev:/dev
+      - /mnt:/extra-filesystems/mnt:ro
       - ./beszel_agent_data:/var/lib/beszel-agent
-      - /mnt:/HDD-DataStore:ro
+      - /usr/sbin/smartctl:/usr/sbin/smartctl
+
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
     environment:
       LISTEN: ${BESZEL_AGENT_LISTEN}
       KEY: ${BESZEL_AGENT_KEY}

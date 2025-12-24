@@ -1,0 +1,62 @@
+/*==================================
+  TAB STYLES
+==================================*/
+/* Container for all tabs */
+#myTab {
+display: inline;
+position: fixed;
+width: 200px;
+top: 95px;
+border: 1px solid rgba(224, 224, 224, 0.25);
+}
+
+/* Individual tab styling */
+button[id$='-tab'] {
+  text-align: left;
+  padding-left: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/*==================================
+  BOOKMARK SECTION STYLES
+==================================*/
+/* Bookmark section container */
+.bookmark-group {
+  width: 210px;
+  position: absolute;
+  top: 268px;
+  left: -210px;
+}
+
+
+/*==================================
+  LAYOUT GROUP STYLES
+==================================*/
+/* Layout container */
+#layout-groups {
+position: absolute; top: 80px; left: 210px;
+}
+
+/* Service group - 60% width */
+#layout-groups > .services-group:has([id="col-60"]) { 
+max-width: 60% !important;
+}
+
+/* Service group - 40% width */
+#layout-groups > .services-group:has([id="col-40"]) { 
+max-width: 40% !important;
+}
+
+/* Service group - Fixed width & offset placement */
+#layout-groups > .services-group:has([id="sidebar"]) { 
+  position: absolute;
+  top: 130px;
+  left: -210px;
+  width: 208px;
+}
+
+/* Hide footer completely */
+#footer {
+  display: none;
+}

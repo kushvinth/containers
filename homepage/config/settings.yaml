@@ -1,0 +1,57 @@
+---
+title: ServerTitle
+headerStyle: clean
+background:
+  # image: https://github.com/JaKooLit/Wallpaper-Bank/blob/main/wallpapers/Fantasy-Garden.png?raw=true
+  image: https://github.com/JaKooLit/Wallpaper-Bank/blob/main/wallpapers/Fantasy-Mountain.png?raw=true
+  # blur: sm
+  saturate: 50
+  brightness: 50
+  opacity: 80
+theme: dark
+color: zinc
+useEqualHeights: true
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+hideVersion: true
+hideErrors: true
+statusStyle: "dot"
+layout:
+  Server:
+    tab: Server Management
+    header: false
+    style: row
+    columns: 2
+  Media:
+    tab: Media Management
+    header: false
+    style: row
+    columns: 2
+  Documents:
+    tab: Document Management
+    header: false
+    style: row
+    columns: 2
+  Calendar:
+    header: false
+    style: row
+  sidebar_server:
+    tab: Server Management
+    header: false
+    style: row
+  sidebar_media:
+    tab: Media Management
+    header: false
+    style: row
+  sidebar_documents:
+    tab: Document Management
+    header: false
+    style: row
+  FavSites:
+    iconsOnly: true
+    header: false
+    style: row
+ 

@@ -97,3 +97,6 @@ etc-pihole/
 # TODO
 TODO.md
 
+# XNG
+searxng-data/
+valkey-data/

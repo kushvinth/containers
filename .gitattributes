@@ -1,8 +1,13 @@
-# Docker files
+# Dockerfiles
 Dockerfile linguist-detectable
 *.dockerfile linguist-detectable
-docker-compose.yml linguist-detectable
-docker-compose.*.yml linguist-detectable
 
+# docker-compose and YAML files used for Docker
+# docker-compose.yml linguist-detectable linguist-language=Dockerfile
+docker-compose.*.yml linguist-detectable linguist-language=Dockerfile
+*.yaml linguist-detectable linguist-language=Dockerfile
+docker/**/*.yml linguist-detectable linguist-language=Dockerfile
+docker-compose.yml linguist-detectable linguist-language=YAML
+docker-compose.*.yml linguist-detectable linguist-language=YAML
 # Ignore CSS
 *.css linguist-vendored

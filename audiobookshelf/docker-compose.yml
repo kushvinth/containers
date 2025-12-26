@@ -4,10 +4,13 @@ services:
     container_name: audiobookshelf
     ports:
       - 13378:80
-    volumes:
-      - ${DATAPATH}/audiobooks>:/audiobooks
-      - ${DATAPATH}/podcasts>:/podcasts
-      - ${DATAPATH}/config>:/config
-      - ${DATAPATH}/metadata>:/metadata
     environment:
-      - TZ=America/Toronto
+      - TZ=${TZ}
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${DATAPATH}/data/audiobooks:/audiobooks
+      - ${DATAPATH}/metadata:/metadata
+      - ${DATAPATH}/config/audiobookshelf:/config
+    restart: unless-stopped
+

@@ -5,7 +5,8 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: $(LIST_OF_ALLOWED_HOSTS)
+      # HOMEPAGE_ALLOWED_HOSTS: $(LIST_OF_ALLOWED_HOSTS)
+      HOMEPAGE_ALLOWED_HOSTS: '*'
       PUID: 1000                                   # Optional
       PGID: 126                                   # Optional
       WEATHERAPI_API_KEY: $(WEATHERAPI_API_KEY)

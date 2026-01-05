@@ -4,11 +4,6 @@ services:
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft-server
-    labels:
-      - "autokuma.enabled=true"
-      - "autokuma.group=minecraft"
-      - "autokuma.name=Minecraft Server"
-      - "autokuma.type=docker"
     ports:
       - "25565:25565"
     environment:
@@ -27,10 +22,5 @@ services:
     image: ghcr.io/playit-cloud/playit-agent:0.16
     container_name: playit
     network_mode: host
-    labels:
-      - "autokuma.enabled=true"
-      - "autokuma.group=minecraft"
-      - "autokuma.name=PlayIt Tunnel"
-      - "autokuma.type=docker"
     environment:
       - SECRET_KEY=${SECRET_KEY}

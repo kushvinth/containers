@@ -4,11 +4,6 @@ services:
     image: nickfedor/watchtower:latest
     container_name: watchtower
     restart: unless-stopped
-    labels:
-      - "autokuma.enabled=true"
-      - "autokuma.group=maintenance"
-      - "autokuma.name=Watchtower"
-      - "autokuma.type=docker"
     ports:
       - "8099:8080" 
     volumes:

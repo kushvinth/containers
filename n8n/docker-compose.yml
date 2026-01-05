@@ -3,12 +3,6 @@ services:
     image: docker.n8n.io/n8nio/n8n
     restart: unless-stopped
     container_name: n8n
-    labels:
-      - "autokuma.enabled=true"
-      - "autokuma.group=n8n"
-      - "autokuma.name=n8n Automation"
-      - "autokuma.url=http://localhost:5678"
-      - "autokuma.type=http"
     ports:
       - "5678:5678"
     environment:

@@ -1,0 +1,26 @@
+---
+- resources:
+    cpu: true
+    memory: true
+    cputemp: true
+    tempmin: 0
+    tempmax: 100
+    uptime: true
+    units: metric
+    refresh: 3000
+ 
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
+      hourCycle: h23
+      dateStyle: short
+      timeZone: Asia/Kolkata
+ 
+- openmeteo:
+    label: {{HOMEPAGE_VAR_label}}
+    latitude: {{HOMEPAGE_VAR_latitude}}
+    longitude: {{HOMEPAGE_VAR_longitude}}
+    timezone: Asia/Kolkata
+    units: metric
+    cache: 5

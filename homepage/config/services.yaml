@@ -1,0 +1,220 @@
+---
+- Server:
+  - Uptime Kuma:
+      id: col-60
+      icon: uptime-kuma
+      href: https://status.kushvinth.com
+      description: Status monitoring
+      siteMonitor: http://192.168.1.244:3001
+  - N8N:
+      id: col-60
+      icon: n8n
+      href: https://n8n.kushvinth.com
+      description: Workflow automation
+      siteMonitor: http://192.168.1.244:5678
+  - Speedtest Tracker:
+      id: col-60
+      icon: speedtest-tracker
+      href: https://speed.kushvinth.com
+      description: Internet speed monitoring
+      siteMonitor: http://192.168.1.244:30093
+  - Ntfy:
+      id: col-60
+      icon: ntfy
+      href: https://ntfy.kushvinth.com
+      description: Push notifications
+      siteMonitor: http://192.168.1.244:8089
+
+  - Qbittorrent:
+      id: col-60
+      icon: qbittorrent
+      href: http://192.168.1.244:8088
+      description: Bittorrent management
+      siteMonitor: http://192.168.1.244:8088
+      widget:
+          type: qbittorrent
+          url: http://192.168.1.244:8080
+          username: {{HOMEPAGE_VAR_qbittorrent_USERNAME}}
+          password: {{HOMEPAGE_VAR_qbittorrent_PASSWORD}}
+          enableLeechProgress: true # optional, defaults to false
+          enableLeechSize: true # optional, defaults to false
+  - Beszel:
+      id: col-60
+      icon: beszel
+      href: https://beszel.kushvinth.com
+      description: System monitoring
+      siteMonitor: http://192.168.1.244:8090
+      widget:
+        type: beszel
+        url: http://beszel.kushvinth.com
+        username: {{HOMEPAGE_VAR_BESZEL_USERNAME}}
+        password: {{HOMEPAGE_VAR_BESZEL_PASSWORD}}
+        systemId: Mini Pekka # optional
+        version: 2 # optional, default is 1
+        
+- sidebar_server:
+    - Minecraft:
+        id: sidebar
+        icon: minecraft
+        href: minecraft://192.168.1.244:25565
+        description: Game server
+        url: udp://graphics-ballet.gl.joinmc.link
+    - Playit.gg:
+        id: sidebar
+        icon: https://external-content.duckduckgo.com/ip3/playit.gg.ico
+        href: https://playit.gg
+        description: Game tunnel
+                   
+- Media:
+  - Immich:
+      id: col-60
+      icon: immich
+      href: https://immich.kushvinth.com
+      description: Photo gallery
+      siteMonitor: http://192.168.1.244:2283
+      widget:
+        type: immich
+        url: http://192.168.1.244:2283
+        key: {{HOMEPAGE_VAR_immich_KEY}}
+        version: 2
+        fields: ["photos","videos"]
+  - Jellyfin:
+      id: col-60
+      icon: jellyfin
+      href: https://jellyfin.kushvinth.com
+      description: Media server
+      siteMonitor: http://192.168.1.244:8096
+      widget:
+          type: jellyfin
+          url: https://jellyfin.kushvinth.com
+          key: {{HOMEPAGE_VAR_Jellyfin_KEY}}
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          enableMediaControl: false # optional, defaults to true
+          showEpisodeNumber: true # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+  - Jellyseerr:
+      id: col-60
+      icon: jellyseerr
+      href: https://movie.kushvinth.com
+      description: Media requests
+      siteMonitor: http://192.168.1.244:5055
+      widget:
+        type: jellyseerr
+        url: http://192.168.1.244:5055
+        key: {{HOMEPAGE_VAR_Jellyeerr_KEY}}
+  - Radarr:
+      id: col-60
+      icon: radarr
+      href: http://192.168.1.244:7878
+      description: Movie management
+      siteMonitor: http://192.168.1.244:7878
+      widget:
+        type: radarr
+        url: http://192.168.1.244:7878
+        key: {{HOMEPAGE_VAR_radarr_KEY}}
+  - Sonarr:
+      id: col-60
+      icon: sonarr
+      href: http://192.168.1.244:8989
+      description: TV series management
+      siteMonitor: http://192.168.1.244:8989
+      widget:
+        type: sonarr
+        url: http://192.168.1.244:8989
+        key: {{HOMEPAGE_VAR_sonarr_KEY}}
+  - Lidarr:
+      id: col-60
+      icon: lidarr
+      href: http://192.168.1.244:8686
+      description: Music management
+      siteMonitor: http://192.168.1.244:8686
+      widget:
+        type: lidarr
+        url: http://192.168.1.244:8686
+        key: {{HOMEPAGE_VAR_lidarr_KEY}}
+  - Prowlarr:
+      id: col-60
+      icon: prowlarr
+      href: http://192.168.1.244:9696
+      description: Indexer management
+      siteMonitor: http://192.168.1.244:9696
+      widget:
+        type: prowlarr
+        url: http://192.168.1.244:9696
+        key: {{HOMEPAGE_VAR_prowlarr_KEY}}
+        fields: ["numberOfGrabs","numberOfQueries"]
+  - Audiobookshelf:
+      id: col-60
+      icon: audiobookshelf
+      href: http://192.168.1.244:13378
+      description: Audiobook server
+      siteMonitor: http://192.168.1.244:13378
+      widget:
+        type: audiobookshelf
+        url: http://192.168.1.244:13378
+        key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
+        
+- sidebar_media:
+  - Minecraft:
+      id: sidebar
+      icon: minecraft
+      href: http://192.168.1.244:25565
+      description: Game server
+      url: udp://graphics-ballet.gl.joinmc.link
+  - Playit.gg:
+      id: sidebar
+      icon: https://external-content.duckduckgo.com/ip3/playit.gg.ico
+      href: https://playit.gg
+      description: Game tunnel
+
+- Documents:
+  - Bento PDF:
+      id: col-60
+      icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/bentopdf.png
+      href: https://pdf.kushvinth.com
+      description: PDF tools
+      siteMonitor: http://192.168.1.244:8085
+          
+- sidebar_documents:
+    - Minecraft:
+        id: sidebar
+        icon: minecraft
+        href: http://192.168.1.244:25565
+        description: Game server
+        url: udp://graphics-ballet.gl.joinmc.link
+    - Playit.gg:
+        id: sidebar
+        icon: https://external-content.duckduckgo.com/ip3/playit.gg.ico
+        href: https://playit.gg
+        description: Game tunnel
+    
+- Calendar:
+    - "":
+        id: col-40
+        widget:
+          type: calendar
+          firstDayInWeek: monday
+          view: monthly
+          showTime: true
+          timezone: Asia/Kolkata
+          integrations:
+            - type: sonarr
+              service_group: Media
+              service_name: Sonarr
+              color: blue
+              params:
+                unmonitored: false
+            - type: radarr
+              service_group: Media
+              service_name: Radarr
+              color: yellow
+              params:
+                unmonitored: false
+            - type: lidarr
+              service_group: Media
+              service_name: Lidarr
+              color: green
+              params:
+                unmonitored: false

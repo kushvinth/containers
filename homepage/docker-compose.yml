@@ -9,7 +9,7 @@ services:
       HOMEPAGE_ALLOWED_HOSTS: '*'
       PUID: 1000                                   # Optional
       PGID: 126                                   # Optional
-      WEATHERAPI_API_KEY: $(WEATHERAPI_API_KEY)
+      WEATHERAPI_API_KEY: ${WEATHERAPI_API_KEY}
     env_file: 
       - .env
     ports:

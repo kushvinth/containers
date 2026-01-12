@@ -116,3 +116,6 @@ dockhand_data/
 # Wireguard
 etc_wireguard/
 
+# Homepage
+kubernetes.yaml
+proxmox.yaml

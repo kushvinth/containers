@@ -54,7 +54,7 @@ caddy_data/
 caddyfile/
 
 # Minecraft LocalStore
-paperMC/
+auto-mcs-data/
 version.json
 
 # Nginx
@@ -62,6 +62,7 @@ reverse-proxy.conf
 
 # immich datastore
 immich_data/
+immich/upload/
 
 # uptimekuma datastore
 data/
@@ -107,3 +108,7 @@ valkey-data/
 caddy-data/
 nginx-data/
 searxng/
+
+# Dockhand datastore
+dockhand_data/
+

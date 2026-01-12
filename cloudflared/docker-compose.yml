@@ -10,6 +10,15 @@ services:
       - run
       - --token
       - ${TUNNEL_TOKEN} 
+    environment:
+      - TUNNEL_TRANSPORT_PROTOCOL=http2
+      - TUNNEL_EDGE_IP_VERSION=4
+    networks: 
+      - cloudflared_default
+networks:
+  cloudflared_default:
+    external: true
+
 secrets:
   cloudflareTunnelToken:
     external: true

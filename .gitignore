@@ -55,7 +55,7 @@ caddyfile/
 
 # Minecraft LocalStore
 auto-mcs-data/
-papermc/
+paperMC/
 version.json
 
 # Nginx
@@ -112,4 +112,7 @@ searxng/
 
 # Dockhand datastore
 dockhand_data/
+
+# Wireguard
+etc_wireguard/
 

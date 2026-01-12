@@ -1,26 +1,31 @@
-version: "3.8"
-
+version: "3"
 services:
-  minecraft:
-    image: itzg/minecraft-server:latest
-    container_name: minecraft-server
-    ports:
-      - "25565:25565"
-    environment:
-      EULA: "TRUE"
-      TYPE: "PAPER"
-      VERSION: "1.21.8"
-      MEMORY: "2G"
-      MAX_TICK_TIME: "-1"
-      ENABLE_AUTOSTOP: "TRUE"
-      AUTOSTOP_TIMEOUT_EST: "60"
-      AUTOPAUSE_KNOCK_INTERFACE: "eth0"
-    volumes:
-      - ./paperMC:/data
+  app:
+    image: macarooniman/auto-mcs:latest
+    container_name: auto-mcs
+    stdin_open: true
+    tty: true
     restart: unless-stopped
-  playit:
-    image: ghcr.io/playit-cloud/playit-agent:0.16
-    container_name: playit
-    network_mode: host
+
     environment:
-      - SECRET_KEY=${SECRET_KEY}
+      WEB_PORT: "8180"
+      WEB_USERNAME: ${MC_USER}
+      WEB_PASSWORD: ${MC_PASS}
+    env_file:
+      - ".env"
+    ports:
+
+      # Web interface (make this the same as WEB_PORT)
+      - "8180:8180"
+
+      # Telepath API (auto-mcs)
+      - "7001:7001"
+
+      # Add more ports based on the servers you create
+      - "25565:25565"
+
+    volumes:
+      - ./auto-mcs-data:/root/.auto-mcs
+
+volumes:
+  auto-mcs-data:

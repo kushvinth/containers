@@ -55,6 +55,7 @@ caddyfile/
 
 # Minecraft LocalStore
 auto-mcs-data/
+papermc/
 version.json
 
 # Nginx

@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   speedtest:
     container_name: speedtest
@@ -7,6 +5,14 @@ services:
     restart: always
     ports:
       - "30093:8080"
+    volumes:
+      - ./Speed_dataStore:/database
     environment:
       MODE: standalone
       DISTANCE: km
+      TITLE: "Kushvinth's Speedtest"
+      TELEMETRY: "true"
+      ENABLE_ID_OBFUSCATION: "true"
+      PASSWORD: ${PASSWORD}
+      EMAIL: "Kushvinth.m@gmail.com"
+      

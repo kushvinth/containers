@@ -186,9 +186,10 @@ services:
     ports:
       - 5055:5055
     restart: unless-stopped
-    # dns:
-    #   - 1.1.1.1
-    #   - 0.0.0.0
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+      - 0.0.0.0
     networks:
       - warp
 

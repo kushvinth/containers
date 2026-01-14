@@ -119,3 +119,6 @@ etc_wireguard/
 # Homepage
 kubernetes.yaml
 proxmox.yaml
+
+# Speedtest
+Speed_dataStore/

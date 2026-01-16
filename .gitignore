@@ -122,3 +122,9 @@ proxmox.yaml
 
 # Speedtest
 Speed_dataStore/
+dataStore/
+
+# Loki
+*.log
+prometheus-data/
+grafana-data/

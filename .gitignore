@@ -7,9 +7,10 @@ yarn-error.log*
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
+*.
 *.pyd
 *.env
+.secrets
 env/
 venv/
 ENV/

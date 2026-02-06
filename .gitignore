@@ -129,3 +129,6 @@ dataStore/
 *.log
 prometheus-data/
 grafana-data/
+
+# Localai
+localai/models

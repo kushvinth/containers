@@ -6,13 +6,39 @@ services:
       - "25565:25565"
     environment:
       EULA: "TRUE"
-      TYPE: "PAPER"
-      VERSION: "1.21.8"
-      MEMORY: "1G"
+      TYPE: "FABRIC"
+      VERSION: "1.21.1"
+      MAX_MEMORY: "4096M"
       MAX_TICK_TIME: "-1"
       ENABLE_AUTOSTOP: "TRUE"
       AUTOSTOP_TIMEOUT_EST: "60"
       AUTOPAUSE_KNOCK_INTERFACE: "eth0"
+      ONLINE_MODE: "false"
+      VIEW_DISTANCE: "10"
+      SIMULATION_DISTANCE: "8"
+      MODRINTH_PROJECTS: |-
+        ferrite-core
+        lithium
+        appleskin
+        simple-voice-chat
+        clumps
+        ore-harvester
+        tree-harvester
+        krypton
+        villager-names-serilum
+        rightclickharvest
+        easyauth
+        your-items-are-safe
+        c2me-fabric
+        inventory-sorting
+        skinrestorer
+        no-dim
+      MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+      MODRINTH_ALLOWED_VERSION_TYPE: "alpha"
+      ENFORCE_SECURE_PROFILE: "false"
+      RCON_CMDS_STARTUP: |-
+        gamerule players_sleeping_percentage 1
+      BUG_REPORT_LINK: "https://github.com/kushvinth/containers"
     volumes:
       - ./paperMC:/data
     restart: unless-stopped

@@ -55,6 +55,10 @@ services:
       - "9100:9100"
     volumes:
       - /:/host:ro,rslave
+      - /sys:/sys:ro
+      - /run/systemd:/run/systemd:ro
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
+    pid: host
     restart: unless-stopped
     networks:
       - monitoring

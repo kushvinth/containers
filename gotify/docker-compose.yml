@@ -1,0 +1,58 @@
+services:
+  gotify:
+    container_name: gotify
+    hostname: gotify
+    image: gotify/server
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - net
+    ports:
+      - "8680:80"
+    volumes:
+      - ./gotify_data:/app/data
+    environment:
+      GOTIFY_DEFAULTUSER_PASS: ${GOTIFY_DEFAULTUSER_PASS}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  igotify:
+    container_name: igotify
+    hostname: igotify
+    image: ghcr.io/androidseb25/igotify-notification-assist:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      gotify:
+        condition: service_healthy
+    networks:
+      - net
+    ports:
+      - "8681:8080"
+    volumes:
+      - ./igotify_data:/app/data
+    environment:
+      GOTIFY_URLS: ${GOTIFY_URLS}
+      GOTIFY_CLIENT_TOKENS: ${GOTIFY_CLIENT_TOKENS}
+      SECNTFY_TOKENS: ${SECNTFY_TOKENS}
+      ENABLE_CONSOLE_LOG: ${ENABLE_CONSOLE_LOG}
+      ENABLE_SCALAR_UI: ${ENABLE_SCALAR_UI}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/Version"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+networks:
+  net:
+
+volumes:
+  gotify_data:
+  igotify_data:

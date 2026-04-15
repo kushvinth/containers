@@ -1,0 +1,14 @@
+services:
+    feishin:
+        container_name: feishin
+        image: "ghcr.io/jeffvli/feishin:latest"
+        restart: unless-stopped
+        environment:
+            - SERVER_NAME=jellyfin
+            - SERVER_LOCK=false  
+            - SERVER_TYPE=jellyfin
+            - SERVER_URL=http://localhost:8096
+            - LEGACY_AUTHENTICATION=false 
+            - ANALYTICS_DISABLED=false
+        ports:
+            - 9180:9180

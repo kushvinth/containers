@@ -58,6 +58,7 @@ caddyfile/
 auto-mcs-data/
 paperMC/
 version.json
+_data
 
 # Nginx
 reverse-proxy.conf
@@ -132,3 +133,7 @@ grafana-data/
 
 # Localai
 localai/models
+
+# gotigy
+gotify_data
+igotify_data

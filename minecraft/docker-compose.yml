@@ -4,47 +4,68 @@ services:
     container_name: minecraft-server
     ports:
       - "25565:25565"
+      - "25565:25565/udp"
+      - "19132:19132/udp"
+      - "24454:24454/udp"
     environment:
       EULA: "TRUE"
       TYPE: "FABRIC"
-      VERSION: "1.21.1"
-      MAX_MEMORY: "4096M"
+      VERSION: "1.21.11"
+      MEMORY: "8G"
       MAX_TICK_TIME: "-1"
-      ENABLE_AUTOSTOP: "TRUE"
-      AUTOSTOP_TIMEOUT_EST: "60"
+      TZ: "Asia/Kolkata"
+      USE_MEOWICE_FLAGS: "true"
+      USE_AIKAR_FLAGS: "true"
       AUTOPAUSE_KNOCK_INTERFACE: "eth0"
       ONLINE_MODE: "false"
-      VIEW_DISTANCE: "10"
-      SIMULATION_DISTANCE: "8"
+      VIEW_DISTANCE: "16"
+      SIMULATION_DISTANCE: "10"
       MODRINTH_PROJECTS: |-
-        ferrite-core
-        lithium
-        appleskin
-        simple-voice-chat
         clumps
+        lithium
+        krypton
+        ferrite-core
+        styledplayerlist
+        badpackets
+        c2me-fabric
+        chunky
+        minimotd
+        
+        simple-voice-chat
         ore-harvester
         tree-harvester
-        krypton
         villager-names-serilum
         rightclickharvest
         easyauth
         your-items-are-safe
-        c2me-fabric
         inventory-sorting
         skinrestorer
         no-dim
+        anti-xray
+        appleskin
+        enchantment-lore
+
+        katters-structures
+        dungeons-and-taverns
+        towns-and-towers
       MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
       MODRINTH_ALLOWED_VERSION_TYPE: "alpha"
       ENFORCE_SECURE_PROFILE: "false"
       RCON_CMDS_STARTUP: |-
         gamerule players_sleeping_percentage 1
+        chunky continue
+      RCON_CMDS_FIRST_CONNECT: |-
+        chunky pause
+      RCON_CMDS_LAST_DISCONNECT: |-
+        chunky continue
       BUG_REPORT_LINK: "https://github.com/kushvinth/containers"
     volumes:
-      - ./paperMC:/data
+      - ./data:/data
     restart: unless-stopped
   playit:
     image: ghcr.io/playit-cloud/playit-agent:0.16
     container_name: playit
     network_mode: host
+    restart: unless-stopped
     environment:
       - SECRET_KEY=${SECRET_KEY}

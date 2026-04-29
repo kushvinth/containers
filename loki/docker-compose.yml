@@ -6,6 +6,7 @@ services:
       - "9091:9090"
     volumes:
       - ./prometheus/prometheus.yml:/config/prometheus.yml:ro
+      - ./prometheus/rules.yml:/config/rules.yml:ro
       - prometheus-data:/prometheus
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped

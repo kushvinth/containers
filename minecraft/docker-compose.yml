@@ -17,6 +17,7 @@ services:
       USE_MEOWICE_FLAGS: "true"
       USE_AIKAR_FLAGS: "true"
       AUTOPAUSE_KNOCK_INTERFACE: "eth0"
+      DIFFICULTY: "hard"
       ONLINE_MODE: "false"
       VIEW_DISTANCE: "16"
       SIMULATION_DISTANCE: "10"
@@ -44,10 +45,12 @@ services:
         anti-xray
         appleskin
         enchantment-lore
-
+        player-drops-head
+        
         katters-structures
         dungeons-and-taverns
         towns-and-towers
+
       MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
       MODRINTH_ALLOWED_VERSION_TYPE: "alpha"
       ENFORCE_SECURE_PROFILE: "false"

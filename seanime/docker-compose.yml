@@ -1,0 +1,50 @@
+services:
+  seanime:
+    image: umagistr/seanime:latest@sha256:7000cd9f6ffae84dc6cbbe7dd64aaf5346473550cf204d06dce4814cb9e1b0a8
+    container_name: seanime
+    environment:
+      - TZ=Asia/Kolkata
+      - SEANIME_SERVER_HOST=0.0.0.0
+      - SEANIME_SERVER_PASSWORD="WOW123"
+    volumes:
+      - ${ARRPATH}Seanime/config:/root/.config/Seanime
+      - ${ARRPATH}Sonarr/tvshows:/anime
+      - ${ARRPATH}Downloads:/downloads
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun-seanime
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=openvpn
+      - FREE_ONLY=on
+      - SERVER_COUNTRIES=Netherlands
+      - HEALTH_VPN_EXPECTED_STATUS=healthy
+      - TZ=Asia/Kolkata
+      - DNS=1.1.1.1
+      # Allow LAN/Tailscale access to the exposed ports via the VPN container
+      - FIREWALL_INPUT_PORTS=43211
+      - FIREWALL_OUTBOUND_SUBNETS=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,100.64.0.0/10
+    env_file:
+      - .env
+    volumes:
+      - /mnt/media/arr/gluetun:/gluetun
+    ports:
+      # Expose only the Seanime WebUI through the VPN container
+      - 3261:43211
+    restart: unless-stopped
+    networks:
+      - servarrnetwork
+
+networks:
+  servarrnetwork:
+    driver: bridge
+  warp:

@@ -106,6 +106,32 @@ services:
       - '.env'
     networks:
       - warp  
+
+# ██████╗  █████╗ ███████╗ █████╗ ██████╗ ██████╗ 
+# ██╔══██╗██╔══██╗╚══███╔╝██╔══██╗██╔══██╗██╔══██╗
+# ██████╔╝███████║  ███╔╝ ███████║██████╔╝██████╔╝
+# ██╔══██╗██╔══██║ ███╔╝  ██╔══██║██╔══██╗██╔══██╗
+# ██████╔╝██║  ██║███████╗██║  ██║██║  ██║██║  ██║
+# ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    hostname: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${ARRPATH}Bazarr/config:/config
+      - ${ARRPATH}Radarr/movies:/movies
+      - ${ARRPATH}Sonarr/tvshows:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    env_file:
+      - '.env'
+    networks:
+      - warp
       
 
 #      ██╗███████╗██╗     ██╗  ██╗   ██╗███████╗██╗███╗   ██╗
@@ -128,6 +154,7 @@ services:
       - ${ARRPATH}Jellyfin/config:/config
       - ${ARRPATH}Radarr/movies:/data/Movies
       - ${ARRPATH}Sonarr/tvshows:/data/TVShows
+      - ${ARRPATH}Downloads/anime:/data/Anime
       - ${ARRPATH}Lidarr/music:/data/Music
     env_file:
       - '.env'
@@ -152,6 +179,7 @@ services:
     volumes:
       - ${ARRPATH}qbittorrent/config:/config
       - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}Sonarr/tvshows:/anime
     ports:
       - 8080:8080
       - 6881:6881
@@ -159,6 +187,8 @@ services:
     environment:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
+      - PUID=1000  
+      - PGID=1000    
     healthcheck:
       start_period: 15s
     env_file:
@@ -216,26 +246,25 @@ services:
 # ╚███╔███╔╝██║  ██║██║  ██║██║     
 #  ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     
 
-  warp:
-    image: caomingjun/warp
-    container_name: warp
-    restart: unless-stopped
-    device_cgroup_rules:
-      - "c 10:200 rwm"
-    ports:
-      - "1080:1080"
-    cap_add:
-      - NET_ADMIN
-      - MKNOD
-      - AUDIT_WRITE
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.src_valid_mark=1
-    volumes:
-      - ${ARRPATH}warp:/var/lib/cloudflare-warp
-    networks:
-      - warp
-
+  # warp:
+  #  image: caomingjun/warp
+  #  container_name: warp
+  #  restart: unless-stopped
+  #  device_cgroup_rules:
+  #    - "c 10:200 rwm"
+  #  ports:
+  #    - "1080:1080"
+  #  cap_add:
+  #    - NET_ADMIN
+  #    - MKNOD
+  #    - AUDIT_WRITE
+  #  sysctls:
+  #    - net.ipv6.conf.all.disable_ipv6=0
+  #    - net.ipv4.conf.all.src_valid_mark=1
+  #  volumes:
+  #    - ${ARRPATH}warp:/var/lib/cloudflare-warp
+  #  networks:
+  #    - warp
 
 networks:
   warp:

@@ -11,7 +11,7 @@ services:
       EULA: "TRUE"
       TYPE: "FABRIC"
       VERSION: "1.21.11"
-      MEMORY: "8G"
+      MEMORY: "1G"
       MAX_TICK_TIME: "-1"
       TZ: "Asia/Kolkata"
       USE_MEOWICE_FLAGS: "true"
@@ -32,7 +32,7 @@ services:
         chunky
         minimotd
         geyser
-        
+
         simple-voice-chat
         ore-harvester
         tree-harvester
@@ -47,6 +47,7 @@ services:
         appleskin
         enchantment-lore
         player-drops-head
+        system-teams
         
         katters-structures
         dungeons-and-taverns

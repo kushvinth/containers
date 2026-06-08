@@ -13,6 +13,8 @@ services:
       - TS_ENABLE_HEALTH_CHECK=true
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234
       - TS_AUTH_ONCE=true
+      - TS_PORT=41612
+
     configs:
       - source: ts-serve
         target: /config/serve.json

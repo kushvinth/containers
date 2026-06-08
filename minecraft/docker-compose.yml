@@ -11,7 +11,7 @@ services:
       EULA: "TRUE"
       TYPE: "FABRIC"
       VERSION: "1.21.11"
-      MEMORY: "1G"
+      MEMORY: "8G"
       MAX_TICK_TIME: "-1"
       TZ: "Asia/Kolkata"
       USE_MEOWICE_FLAGS: "true"

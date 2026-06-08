@@ -140,34 +140,37 @@ services:
 # ██   ██║██╔══╝  ██║     ██║    ╚██╔╝  ██╔══╝  ██║██║╚██╗██║
 # ╚█████╔╝███████╗███████╗███████╗██║   ██║     ██║██║ ╚████║
 #  ╚════╝ ╚══════╝╚══════╝╚══════╝╚═╝   ╚═╝     ╚═╝╚═╝  ╚═══╝
-     
+
   jellyfin:
     image: linuxserver/jellyfin
     container_name: jellyfin
-    ports:
-      - '8096:8096/tcp'   # Jellyfin web interface
-      - '7359:7359/udp'   # Network discovery
-      - '1900:1900/udp'   # DLNA port
+    network_mode: container:tailscale-sidecar
     devices:
-      - /dev/dri:/dev/dri   
+      - /dev/dri:/dev/dri
+    group_add:
+      - "44"
+      - "992"
     volumes:
       - ${ARRPATH}Jellyfin/config:/config
       - ${ARRPATH}Radarr/movies:/data/Movies
       - ${ARRPATH}Sonarr/tvshows:/data/TVShows
       - ${ARRPATH}Downloads/anime:/data/Anime
       - ${ARRPATH}Lidarr/music:/data/Music
+      - ${ARRPATH}jellyfin-transcode:/transcode
+      - ./cache:/cache
+    environment:
+      - LIBVA_DRIVER_NAME=iHD
+      - TZ=Asia/Kolkata
     env_file:
       - '.env'
     restart: unless-stopped
-    networks:
-      - warp
           
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
 # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
 # ██║   ██║██████╔╝██║   ██║      ██║   ██║   ██║██████╔╝██████╔╝█████╗  ██╔██╗ ██║   ██║   
 # ██║▄▄ ██║██╔══██╗██║   ██║      ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║╚██╗██║   ██║   
 # ╚██████╔╝██████╔╝██║   ██║      ██║   ╚██████╔╝██║  ██║██║  ██║███████╗██║ ╚████║   ██║   
-#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝                                                                                          
+#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝ q  ╚═╝                                                                                          
                                                                                              
   qbittorrent:
     image: linuxserver/qbittorrent:4.5.5
@@ -181,11 +184,11 @@ services:
       - ${ARRPATH}Downloads:/downloads
       - ${ARRPATH}Sonarr/tvshows:/anime
     ports:
-      - 8080:8080
+      - 8988:8988
       - 6881:6881
       - 6881:6881/udp
     environment:
-      - WEBUI_PORT=8080
+      - WEBUI_PORT=8988
       - TORRENTING_PORT=6881
       - PUID=1000  
       - PGID=1000    
@@ -219,7 +222,6 @@ services:
     dns:
       - 8.8.8.8
       - 1.1.1.1
-      - 0.0.0.0
     networks:
       - warp
 

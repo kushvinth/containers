@@ -8,20 +8,16 @@ services:
     environment:
       - TS_EXTRA_ARGS=--login-server=https://headscale.pranaovs.me
       - TS_STATE_DIR=/var/lib/tailscale
-      - TS_SERVE_CONFIG=/config/serve.json
       - TS_USERSPACE=false
       - TS_ENABLE_HEALTH_CHECK=true
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234
       - TS_AUTH_ONCE=true
-      - TS_PORT=41612
-
-    configs:
-      - source: ts-serve
-        target: /config/serve.json
+      - TS_PORT=41642
     volumes:
       - ${ARRPATH}Jellyfin/tailscale-state:/var/lib/tailscale
     ports:
-      - '8096:8096/tcp'   # Jellyfin web interface (exposing only this port for prod)
+      - '127.0.0.1:8096:8096/tcp'
+      - '192.168.1.244:8096:8096/tcp'
       - '41642:41642/udp' # WireGuard listen port for direct peer connections (41641 is used by host tailscaled)
       - '1900:1900/udp'
       - '7359:7359/udp'
@@ -43,14 +39,17 @@ services:
         aliases:
           - tailscale-jellyfin
 
-configs:
-  ts-serve:
-    content: |
-      {"TCP":{"443":{"HTTPS":true}},
-      "Web":{"$${TS_CERT_DOMAIN}:443":
-          {"Handlers":{"/":
-            {"Proxy":"http://127.0.0.1:8096"}}}},
-      "AllowFunnel":{"$${TS_CERT_DOMAIN}:443":false}}
+  # Official Tailscale clients reach Jellyfin at 100.78.136.89:8096 via this proxy.
+  # Docker cannot publish on the host Tailscale IP; socat binds tailscale0 directly.
+  jellyfin-tailscale-proxy:
+    image: alpine/socat
+    container_name: jellyfin-tailscale-proxy
+    network_mode: host
+    command: TCP-LISTEN:8096,bind=100.78.136.89,reuseaddr,fork TCP:127.0.0.1:8096
+    restart: unless-stopped
+    depends_on:
+      tailscale-sidecar:
+        condition: service_healthy
 
 networks:
   prod:

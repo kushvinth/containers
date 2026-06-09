@@ -52,6 +52,8 @@ services:
     container_name: node_exporter
     command:
       - '--path.rootfs=/host'
+      - '--collector.textfile'
+      - '--collector.textfile.directory=/textfile_collector'
     ports:
       - "9100:9100"
     volumes:
@@ -59,10 +61,12 @@ services:
       - /sys:/sys:ro
       - /run/systemd:/run/systemd:ro
       - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
+      - ./textfile_collector:/textfile_collector:ro
     pid: host
     restart: unless-stopped
     networks:
       - monitoring
+
 
 volumes:
   prometheus-data:

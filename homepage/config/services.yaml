@@ -33,7 +33,7 @@
       siteMonitor: http://192.168.1.244:8088
       widget:
           type: qbittorrent
-          url: http://192.168.1.244:8080
+          url: http://192.168.1.244:8988
           username: {{HOMEPAGE_VAR_qbittorrent_USERNAME}}
           password: {{HOMEPAGE_VAR_qbittorrent_PASSWORD}}
           enableLeechProgress: true # optional, defaults to false

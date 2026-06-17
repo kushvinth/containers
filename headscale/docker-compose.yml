@@ -5,6 +5,7 @@ services:
     image: tailscale/tailscale:latest
     container_name: tailscale-sidecar
     hostname: jellyfin
+    entrypoint: ["/bin/sh", "/scripts/sidecar-init.sh"]
     environment:
       - TS_EXTRA_ARGS=--login-server=https://headscale.pranaovs.me
       - TS_STATE_DIR=/var/lib/tailscale
@@ -13,19 +14,19 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234
       - TS_AUTH_ONCE=true
       - TS_PORT=41642
+      - HOST_GW=172.18.0.1
+      - JELLYFIN_PORT=8096
     volumes:
       - ${ARRPATH}Jellyfin/tailscale-state:/var/lib/tailscale
+      - ./sidecar-init.sh:/scripts/sidecar-init.sh:ro
     ports:
-      - '127.0.0.1:8096:8096/tcp'
-      - '192.168.1.244:8096:8096/tcp'
-      - '41642:41642/udp' # WireGuard listen port for direct peer connections (41641 is used by host tailscaled)
-      - '1900:1900/udp'
-      - '7359:7359/udp'
-
+      - '41642:41642/udp' # WireGuard listen port (host tailscaled uses 41641)
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - net_admin
+    sysctls:
+      - net.ipv4.ip_forward=1
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"]
       interval: 1m
@@ -34,27 +35,26 @@ services:
       start_period: 10s
     restart: unless-stopped
     networks:
-      prod:
       arr_warp:
-        aliases:
-          - tailscale-jellyfin
 
-  # Official Tailscale clients reach Jellyfin at 100.78.136.89:8096 via this proxy.
-  # Docker cannot publish on the host Tailscale IP; socat binds tailscale0 directly.
-  jellyfin-tailscale-proxy:
-    image: alpine/socat
-    container_name: jellyfin-tailscale-proxy
+  # Opens host INPUT so the sidecar yoink (docker bridge -> host Jellyfin) works.
+  host-jellyfin-allow:
+    image: nicolaka/netshoot:latest
+    container_name: host-jellyfin-allow
     network_mode: host
-    command: TCP-LISTEN:8096,bind=100.78.136.89,reuseaddr,fork TCP:127.0.0.1:8096
+    cap_add:
+      - NET_ADMIN
+    command:
+      - sh
+      - -c
+      - |
+        BR=br-35b8df3efe40
+        iptables -C INPUT -i $$BR -p tcp --dport 8096 -j ACCEPT 2>/dev/null \
+          || iptables -I INPUT 1 -i $$BR -p tcp --dport 8096 -j ACCEPT
+        exec sleep infinity
     restart: unless-stopped
-    depends_on:
-      tailscale-sidecar:
-        condition: service_healthy
 
 networks:
-  prod:
-    name: prod
-    driver: bridge
   arr_warp:
     external: true
     name: arr_warp

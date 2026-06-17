@@ -89,6 +89,7 @@ jellyfin/
 Homarr/
 Jellyfin/
 Downloads/
+config/
 
 # beszel datastore
 beszel_agent_data/
@@ -137,3 +138,9 @@ localai/models
 # gotigy
 gotify_data
 igotify_data
+
+# docs
+docs/
+
+# loki
+textfile_collector/

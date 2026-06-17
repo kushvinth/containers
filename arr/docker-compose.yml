@@ -97,7 +97,7 @@ services:
       - PGID=1000
     volumes:
       - ${ARRPATH}Lidarr/config:/config
-      - ${ARRPATH}Lidarr/music:/data/musicfolder
+      - ${ARRPATH}Lidarr/music:/data/music
       - ${ARRPATH}Downloads:/downloads
     ports:
       - 8686:8686
@@ -144,7 +144,7 @@ services:
   jellyfin:
     image: linuxserver/jellyfin
     container_name: jellyfin
-    network_mode: container:tailscale-sidecar
+    network_mode: host
     devices:
       - /dev/dri:/dev/dri
     group_add:

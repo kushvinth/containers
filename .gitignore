@@ -144,3 +144,6 @@ docs/
 
 # loki
 textfile_collector/
+
+# backups
+backups/

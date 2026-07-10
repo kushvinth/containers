@@ -16,6 +16,7 @@ services:
       - TS_PORT=41642
       - HOST_GW=172.18.0.1
       - JELLYFIN_PORT=8096
+      - MINECRAFT_PORT=25565
     volumes:
       - ${ARRPATH}Jellyfin/tailscale-state:/var/lib/tailscale
       - ./sidecar-init.sh:/scripts/sidecar-init.sh:ro
@@ -37,10 +38,10 @@ services:
     networks:
       arr_warp:
 
-  # Opens host INPUT so the sidecar yoink (docker bridge -> host Jellyfin) works.
-  host-jellyfin-allow:
+  # Opens host INPUT so the sidecar yoink (docker bridge -> host services) works.
+  host-services-allow:
     image: nicolaka/netshoot:latest
-    container_name: host-jellyfin-allow
+    container_name: host-services-allow
     network_mode: host
     cap_add:
       - NET_ADMIN
@@ -51,6 +52,8 @@ services:
         BR=br-35b8df3efe40
         iptables -C INPUT -i $$BR -p tcp --dport 8096 -j ACCEPT 2>/dev/null \
           || iptables -I INPUT 1 -i $$BR -p tcp --dport 8096 -j ACCEPT
+        iptables -C INPUT -i $$BR -p tcp --dport 25565 -j ACCEPT 2>/dev/null \
+          || iptables -I INPUT 1 -i $$BR -p tcp --dport 25565 -j ACCEPT
         exec sleep infinity
     restart: unless-stopped
 

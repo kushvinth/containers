@@ -32,8 +32,12 @@ services:
         chunky
         minimotd
         geyser
-
+        noisiumforked
+        servercore
+        spark
+        discord-mc-chat
         simple-voice-chat
+
         ore-harvester
         tree-harvester
         villager-names-serilum
@@ -74,3 +78,4 @@ services:
     restart: unless-stopped
     environment:
       - SECRET_KEY=${SECRET_KEY}
+

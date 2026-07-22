@@ -1,0 +1,58 @@
+services:
+    feishin:
+        container_name: feishin
+        image: "ghcr.io/jeffvli/feishin:latest"
+        restart: unless-stopped
+        environment:
+            - SERVER_NAME=jellyfin
+            - SERVER_LOCK=false  
+            - SERVER_TYPE=jellyfin
+            - SERVER_URL=http://localhost:8096
+            - LEGACY_AUTHENTICATION=false 
+            - ANALYTICS_DISABLED=false
+        ports:
+            - 9180:9180
+        networks:
+            - warp
+    musicseerr:
+       image: ghcr.io/habirabbu/musicseerr:latest
+       container_name: musicseerr
+       environment:
+         - PUID=1000            # Run `id` on your host to find your user/group ID
+         - PGID=1000
+         - PORT=8688
+         - TZ=Etc/UTC           # Your timezone, e.g. Europe/London, America/New_York
+       ports:
+         - "8688:8688"
+       volumes:
+         - /mnt/media/arr/Lidarr/music:/music:ro
+         - ./config:/app/config  # Persistent app configuration
+         - ${ARRPATH}cache:/app/cache    # Cover art and metadata cache
+       restart: unless-stopped
+       healthcheck:
+         test: ["CMD", "curl", "-f", "http://localhost:8688/health"]
+         interval: 30s
+         timeout: 10s
+         start_period: 15s
+         retries: 3
+       networks:
+         - warp
+    explo:
+     image: ghcr.io/lumepart/explo:latest
+     restart: unless-stopped
+     container_name: explo
+     ports:
+       - "7288:7288"
+     volumes:
+       - ./.env:/opt/explo/.env
+       - ./config:/opt/explo/config # required — stores playlist cache and cover art
+       - /mnt/media/arr/Lidarr/music:/data/ # has to be in the same path you have your music system pointed to (it's recommended to put explo under a subfolder)
+      environment:
+        - TZ=${TZ}
+        - WEB_UI=${WEB_UI}
+        - UI_USERNAME=${UI_USERNAME}
+        - UI_PASSWORD=${UI_PASSWORD}
+networks:
+  warp:
+    driver: bridge
+    name: arr_warp

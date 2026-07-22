@@ -1,0 +1,3 @@
+[submodule "database-cracker"]
+	path = database-cracker
+	url = https://github.com/Ashvinth27/auto-mail

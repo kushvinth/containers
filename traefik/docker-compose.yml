@@ -1,0 +1,44 @@
+services:
+
+  traefik:
+    image: "traefik:latest"
+    container_name: "traefik"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.kushvinth.com`)"
+      - "traefik.http.routers.dashboard.entrypoints=web"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth"
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$xHQGeztV$$6Lwr4mVTdwyYCiw3bM3uu."
+    command:
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--accesslog=true"
+      - "--metrics.prometheus=true"
+      - "--tracing.otlp=true"
+      - "--tracing.otlp.grpc.endpoint=127.0.0.1:4317"
+      - "--tracing.otlp.grpc.insecure=true"
+    ports:
+      - "80:80"
+      - "8110:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - cloudflared_default
+
+  whoami:
+    image: "containous/whoami"
+    container_name: "simple-service"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.kushvinth.com`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
+      - "traefik.http.services.whoami.loadbalancer.server.port=80"
+    networks:
+      - cloudflared_default
+
+networks:
+  cloudflared_default:
+    external: true

@@ -144,6 +144,7 @@ services:
   jellyfin:
     image: linuxserver/jellyfin
     container_name: jellyfin
+    network_mode: host
     devices:
       - /dev/dri:/dev/dri
     group_add:
@@ -157,16 +158,12 @@ services:
       - ${ARRPATH}Lidarr/music:/data/Music
       - ${ARRPATH}jellyfin-transcode:/transcode
       - ./cache:/cache
-    ports:
-      - 8096:8096
     environment:
       - LIBVA_DRIVER_NAME=iHD
       - TZ=Asia/Kolkata
     env_file:
       - '.env'
     restart: unless-stopped
-    networks:
-      - warp
           
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
 # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝

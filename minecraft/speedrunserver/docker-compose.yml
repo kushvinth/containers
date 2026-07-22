@@ -16,6 +16,7 @@ services:
       USE_MEOWICE_FLAGS: "true"
       USE_AIKAR_FLAGS: "true"
       AUTOPAUSE_KNOCK_INTERFACE: "eth0"
+      DIFFICULTY: "hard"
       ONLINE_MODE: "false"
       VIEW_DISTANCE: "16"
       SIMULATION_DISTANCE: "10"
@@ -26,8 +27,13 @@ services:
         ferrite-core
         styledplayerlist
         badpackets
+        c2me-fabric
         chunky
-        
+        minimotd
+        noisiumforked
+
+        spark
+
         simple-voice-chat
         ore-harvester
         tree-harvester
@@ -41,17 +47,32 @@ services:
         anti-xray
         appleskin
         enchantment-lore
-
+        player-drops-head
+        system-teams
+        
         katters-structures
         dungeons-and-taverns
         towns-and-towers
+
       MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
       MODRINTH_ALLOWED_VERSION_TYPE: "alpha"
       ENFORCE_SECURE_PROFILE: "false"
       RCON_CMDS_STARTUP: |-
         gamerule players_sleeping_percentage 1
         chunky continue
+      RCON_CMDS_FIRST_CONNECT: |-
+        chunky pause
+      RCON_CMDS_LAST_DISCONNECT: |-
+        chunky continue
       BUG_REPORT_LINK: "https://github.com/kushvinth/containers"
     volumes:
       - ./data:/data
     restart: unless-stopped
+  playit:
+    image: ghcr.io/playit-cloud/playit-agent:0.16
+    container_name: playit
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+

@@ -1,0 +1,11 @@
+services:
+  zeek:
+    image: zeek/zeek:lts
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./logs:/logs
+    command: >
+      zeek -i enp3s0 Log::default_logdir=/logs

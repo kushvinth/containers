@@ -10,7 +10,7 @@ services:
       EULA: "TRUE"
       TYPE: "FABRIC"
       VERSION: "1.21.11"
-      MEMORY: "1G"
+      MEMORY: "4G"
       MAX_TICK_TIME: "-1"
       TZ: "Asia/Kolkata"
       USE_MEOWICE_FLAGS: "true"
@@ -31,8 +31,9 @@ services:
         chunky
         minimotd
         noisiumforked
-
         spark
+        packet-fixer
+        discord-mc-chat
 
         simple-voice-chat
         ore-harvester
@@ -47,12 +48,14 @@ services:
         anti-xray
         appleskin
         enchantment-lore
+        
         player-drops-head
         system-teams
-        
-        katters-structures
-        dungeons-and-taverns
-        towns-and-towers
+        lifesteal-mian
+        instarestock
+        grimac
+        anti-chunkbans
+        luckperms
 
       MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
       MODRINTH_ALLOWED_VERSION_TYPE: "alpha"
@@ -60,6 +63,9 @@ services:
       RCON_CMDS_STARTUP: |-
         gamerule players_sleeping_percentage 1
         chunky continue
+        worldborder center 0 0
+        gamerule locatorBar false
+        worldborder set 5000
       RCON_CMDS_FIRST_CONNECT: |-
         chunky pause
       RCON_CMDS_LAST_DISCONNECT: |-
@@ -68,11 +74,4 @@ services:
     volumes:
       - ./data:/data
     restart: unless-stopped
-  playit:
-    image: ghcr.io/playit-cloud/playit-agent:0.16
-    container_name: playit
-    network_mode: host
-    restart: unless-stopped
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
 

@@ -1,3 +1,6 @@
 [submodule "database-cracker"]
 	path = database-cracker
 	url = https://github.com/Ashvinth27/auto-mail
+[submodule "cold-mail"]
+	path = cold-mail
+	url = https://github.com/kushvinth/cold-mail.git

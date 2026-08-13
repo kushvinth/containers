@@ -7,7 +7,7 @@ services:
     hostname: jellyfin
     entrypoint: ["/bin/sh", "/scripts/sidecar-init.sh"]
     environment:
-      - TS_EXTRA_ARGS=--login-server=https://headscale.pranaovs.me
+      - TS_EXTRA_ARGS=--login-server=https://headscale.kushvinth.com
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
       - TS_ENABLE_HEALTH_CHECK=true

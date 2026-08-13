@@ -17,6 +17,7 @@ services:
       - HOST_GW=172.18.0.1
       - JELLYFIN_PORT=8096
       - MINECRAFT_PORT=25565
+      - MINECRAFT_LIFESTEAL_PORT=25567
     volumes:
       - ${ARRPATH}Jellyfin/tailscale-state:/var/lib/tailscale
       - ./sidecar-init.sh:/scripts/sidecar-init.sh:ro
@@ -54,6 +55,8 @@ services:
           || iptables -I INPUT 1 -i $$BR -p tcp --dport 8096 -j ACCEPT
         iptables -C INPUT -i $$BR -p tcp --dport 25565 -j ACCEPT 2>/dev/null \
           || iptables -I INPUT 1 -i $$BR -p tcp --dport 25565 -j ACCEPT
+        iptables -C INPUT -i $$BR -p tcp --dport 25567 -j ACCEPT 2>/dev/null \
+          || iptables -I INPUT 1 -i $$BR -p tcp --dport 25567 -j ACCEPT
         exec sleep infinity
     restart: unless-stopped
 

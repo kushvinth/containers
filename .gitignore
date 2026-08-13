@@ -31,7 +31,7 @@ Thumbs.db
 # Environment files
 .env
 .env.*
-
+.ignore
 # Compiled source #
 *.com
 *.class

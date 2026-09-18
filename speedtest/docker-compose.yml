@@ -15,4 +15,4 @@ services:
       ENABLE_ID_OBFUSCATION: "true"
       PASSWORD: ${PASSWORD}
       EMAIL: "Kushvinth.m@gmail.com"
-      
+      USE_NEW_DESIGN: true

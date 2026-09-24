@@ -152,6 +152,7 @@ services:
       - "992"
     volumes:
       - ${ARRPATH}Jellyfin/config:/config
+      - /mnt/media/jellyfin-metadata-library:/config/data/metadata/library
       - ${ARRPATH}Radarr/movies:/data/Movies
       - ${ARRPATH}Sonarr/tvshows:/data/TVShows
       - ${ARRPATH}Downloads/anime:/data/Anime

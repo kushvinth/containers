@@ -6,6 +6,7 @@ networks:
 
 services:
   postgresql:
+    container_name: authentik-postgres
     env_file:
     - .env
     environment:
@@ -28,6 +29,7 @@ services:
       - auth_net
 
   server:
+    container_name: authentik-server
     command: server
     depends_on:
       postgresql:
@@ -56,6 +58,7 @@ services:
     - ./custom-templates:/templates
 
   worker:
+    container_name: authentik-worker
     command: worker
     depends_on:
       postgresql:

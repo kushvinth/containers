@@ -3,6 +3,7 @@ services:
   traefik:
     image: "traefik:latest"
     container_name: "traefik"
+    restart: unless-stopped
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.rule=Host(`traefik.kushvinth.com`)"
@@ -31,6 +32,7 @@ services:
   whoami:
     image: "containous/whoami"
     container_name: "simple-service"
+    restart: unless-stopped
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.kushvinth.com`)"

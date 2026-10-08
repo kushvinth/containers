@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   tailscale-sidecar:
     image: tailscale/tailscale:latest
@@ -15,9 +13,8 @@ services:
       - TS_AUTH_ONCE=true
       - TS_PORT=41642
       - HOST_GW=172.18.0.1
-      - JELLYFIN_PORT=8096
-      - MINECRAFT_PORT=25565
-      - MINECRAFT_LIFESTEAL_PORT=25567
+      - HOST_SUBNET=172.18.0.0/16
+      - PORTS=8096 25565 25567 22
     volumes:
       - ${ARRPATH}Jellyfin/tailscale-state:/var/lib/tailscale
       - ./sidecar-init.sh:/scripts/sidecar-init.sh:ro
@@ -26,7 +23,13 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
-      - net_admin
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_ADMIN   # nsenter into the host netns to open the host INPUT chain
+      - SYS_PTRACE  # needed to read /proc/1/ns/net
+    pid: host
+    security_opt:
+      - apparmor=unconfined # docker-default profile blocks reading /proc/1/ns/*
     sysctls:
       - net.ipv4.ip_forward=1
     healthcheck:
@@ -38,27 +41,6 @@ services:
     restart: unless-stopped
     networks:
       arr_warp:
-
-  # Opens host INPUT so the sidecar yoink (docker bridge -> host services) works.
-  host-services-allow:
-    image: nicolaka/netshoot:latest
-    container_name: host-services-allow
-    network_mode: host
-    cap_add:
-      - NET_ADMIN
-    command:
-      - sh
-      - -c
-      - |
-        BR=br-35b8df3efe40
-        iptables -C INPUT -i $$BR -p tcp --dport 8096 -j ACCEPT 2>/dev/null \
-          || iptables -I INPUT 1 -i $$BR -p tcp --dport 8096 -j ACCEPT
-        iptables -C INPUT -i $$BR -p tcp --dport 25565 -j ACCEPT 2>/dev/null \
-          || iptables -I INPUT 1 -i $$BR -p tcp --dport 25565 -j ACCEPT
-        iptables -C INPUT -i $$BR -p tcp --dport 25567 -j ACCEPT 2>/dev/null \
-          || iptables -I INPUT 1 -i $$BR -p tcp --dport 25567 -j ACCEPT
-        exec sleep infinity
-    restart: unless-stopped
 
 networks:
   arr_warp:

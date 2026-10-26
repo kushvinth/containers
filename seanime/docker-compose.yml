@@ -5,7 +5,7 @@ services:
     environment:
       - TZ=Asia/Kolkata
       - SEANIME_SERVER_HOST=0.0.0.0
-      - SEANIME_SERVER_PASSWORD="WOW123"
+      - SEANIME_SERVER_PASSWORD=${SEANIME_SERVER_PASSWORD}
     volumes:
       - ${ARRPATH}Seanime/config:/root/.config/Seanime
       - ${ARRPATH}Sonarr/tvshows:/anime
@@ -14,6 +14,16 @@ services:
     network_mode: "service:gluetun"
     depends_on:
       - gluetun
+    labels:
+      # Never let watchtower recreate this alone: it shares gluetun's network namespace
+      - com.centurylinklabs.watchtower.enable=false
+    healthcheck:
+      # Real internet check through the VPN (DNS + outbound); curl exits 0 on any HTTP reply
+      test: ["CMD-SHELL", "curl -s -m 8 -o /dev/null https://www.cloudflare.com && curl -s -m 8 -o /dev/null https://graphql.anilist.co"]
+      interval: 60s
+      timeout: 20s
+      retries: 3
+      start_period: 30s
 
   gluetun:
     image: qmcgaw/gluetun:latest
@@ -41,6 +51,9 @@ services:
       # Expose only the Seanime WebUI through the VPN container
       - 3261:43211
     restart: unless-stopped
+    labels:
+      # Recreating gluetun orphans seanime's network namespace; update both together by hand
+      - com.centurylinklabs.watchtower.enable=false
     networks:
       - servarrnetwork
 

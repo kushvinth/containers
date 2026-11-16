@@ -1,0 +1,47 @@
+services:
+  gatus:
+    image: ghcr.io/twin/gatus:stable
+    container_name: gatus
+    restart: unless-stopped
+    user: "1000:1000"
+    depends_on:
+      - dockerproxy
+    ports:
+      - "8088:8080"
+    volumes:
+      - ./config.yaml:/config/config.yaml:ro
+      - ./data:/data
+    networks:
+      - gatus_net
+
+  # Reports whether the latest borgmatic backups completed recently.
+  borg-status:
+    image: python:3.12-alpine
+    container_name: gatus-borg-status
+    restart: unless-stopped
+    user: "1000:1000"
+    command: ["python", "/app/borg_status.py"]
+    volumes:
+      - ./borg_status.py:/app/borg_status.py:ro
+      - /var/log/borgmatic-immich.log:/var/log/borgmatic-immich.log:ro
+    networks:
+      - gatus_net
+
+  # Read-only Docker API so Gatus can mirror the old Uptime Kuma "docker" monitors.
+  dockerproxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: gatus-dockerproxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - gatus_net
+
+networks:
+  gatus_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.99.0/24

@@ -5,6 +5,11 @@ services:
     ports:
       - "4533:4533"
     restart: unless-stopped
+    environment:
+      # Last.fm: similar artists / top songs, plus scrobbling (keys live in ./.env, which is gitignored)
+      - ND_LASTFM_ENABLED=true
+      - ND_LASTFM_APIKEY=${LASTFM_API_KEY}
+      - ND_LASTFM_SECRET=${LASTFM_SECRET}
     volumes:
       - "/mnt/media/arr/navi/data:/data"
       - "/mnt/media/arr/Lidarr/music:/music:ro"

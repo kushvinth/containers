@@ -9,7 +9,7 @@ services:
     environment:
       - UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN=1
     ports:
-      - "3001:3001"
+      - "8088:3001"
     networks:
       - cloudflared_default
 

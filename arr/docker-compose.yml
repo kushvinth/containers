@@ -43,9 +43,8 @@ services:
       - PGID=1000    
     volumes:
       - ${ARRPATH}Sonarr/config:/config
-      - ${ARRPATH}Sonarr/backup:/data/Backup
-      - ${ARRPATH}Sonarr/tvshows:/data/tvshows
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}Sonarr/backup:/backup
+      - ${ARRPATH}:/data
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -70,9 +69,8 @@ services:
       - PGID=1000
     volumes:
       - ${ARRPATH}Radarr/config:/config
-      - ${ARRPATH}Radarr/movies:/data/movies
-      - ${ARRPATH}Radarr/backup:/data/Backup
-      - ${ARRPATH}Downloads:/downloads
+      - ${ARRPATH}Radarr/backup:/backup
+      - ${ARRPATH}:/data
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -152,6 +150,7 @@ services:
       - "992"
     volumes:
       - ${ARRPATH}Jellyfin/config:/config
+      - ${ARRPATH}Jellyfin/config/custom-cont-init.d:/custom-cont-init.d:ro
       - /mnt/media/jellyfin-metadata-library:/config/data/metadata/library
       - ${ARRPATH}Radarr/movies:/data/Movies
       - ${ARRPATH}Sonarr/tvshows:/data/TVShows
@@ -210,7 +209,7 @@ services:
 
   jellyseerr:
     container_name: jellyseerr
-    image: fallenbagel/jellyseerr:latest
+    image: ghcr.io/seerr-team/seerr:latest
     environment:
       - PUID=1000
       - PGID=1000

@@ -47,16 +47,17 @@ services:
         inventory-sorting
         skinrestorer
         no-dim
-        anti-xray
         appleskin
         enchantment-lore
         player-drops-head
-        system-teams
-        
+
         katters-structures
         dungeons-and-taverns
         towns-and-towers
 
+      # system-teams was deleted from Modrinth; keep the last downloaded jar locally
+      MODS: |-
+        /data/local-mods/teams-mod-1.0.1.jar
       MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
       MODRINTH_ALLOWED_VERSION_TYPE: "alpha"
       ENFORCE_SECURE_PROFILE: "false"

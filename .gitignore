@@ -66,6 +66,9 @@ reverse-proxy.conf
 # immich datastore
 immich_data/
 immich/upload/
+*.sql
+*.sql.gz
+immich/BACKUP-RECOVERY.txt
 
 # uptimekuma datastore
 data/

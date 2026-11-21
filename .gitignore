@@ -150,3 +150,11 @@ textfile_collector/
 
 # backups
 backups/
+
+# llama-swap
+llama-swap/models/*.gguf
+!llama-swap/config/
+!llama-swap/config/config.yaml
+
+# openclaw (local Docker checkout; state lives in ~/.openclaw-docker)
+openclaw/

@@ -1,0 +1,51 @@
+services:
+  voidauth:
+    image: voidauth/voidauth:latest
+    container_name: voidauth
+    restart: unless-stopped
+    depends_on:
+      voidauth-db:
+        condition: service_healthy
+    environment:
+      APP_URL: ${APP_URL}
+      STORAGE_KEY: ${STORAGE_KEY:?storage key required}
+      DB_PASSWORD: ${DB_PASSWORD:?db password required}
+      DB_HOST: voidauth-db
+      APP_TITLE: Kushvinth Auth
+      APP_COLOR: "#906bc7"
+      CONTACT_EMAIL: here@kushvinth.com
+      DEFAULT_REDIRECT: https://kushvinth.com
+      SIGNUP: "false"
+      PASSWORD_STRENGTH: "4"
+      DISABLE_FILE_UPLOADS: "false"
+      API_RATELIMIT: "60"
+    volumes:
+      - ./config:/app/config
+    networks:
+      cloudflared_default:
+        aliases:
+          - voidauth
+      void_net: {}
+
+  voidauth-db:
+    image: postgres:18
+    container_name: voidauth-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./db:/var/lib/postgresql
+    networks:
+      - void_net
+networks:
+  cloudflared_default:
+    external: true
+  void_net:
+    driver: bridge
+
+
